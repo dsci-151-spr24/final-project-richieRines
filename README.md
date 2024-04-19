@@ -1,6 +1,6 @@
-Project title
+Analysing Olympic Swimming History
 ================
-by your name
+Richie Rines
 
 ## Summary
 
