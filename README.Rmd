@@ -1,6 +1,6 @@
 ---
-title: Project title
-author: by your name
+title: Analysing Olympic Swimming History
+author: Richie Rines
 output: github_document
 ---
 
