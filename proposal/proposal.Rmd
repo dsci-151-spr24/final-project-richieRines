@@ -24,6 +24,17 @@ data %>%
 
 ## 3. Data analysis plan
 
+**History of Swimming Olympics**
+This dataset covers all of the Olympic games (swimming events) from the first ones back in 1912 to the most recent ones in 2020. ***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.*** How have the games evolved over the past century? How many events did there used to be and how many are there now?
+
+```{r}
+#didWin variable created here so it is easier to single out the events. there are multiple swimmers in each event but only one can win, so singling out the winners gives us just one entry for each event
+data <- data %>%
+  mutate(didWin = if_else(Rank == 1, "yes", "no"))
+
+
+```
+
 **How common is each stroke in the Olympic Games? That is, how often does each stroke appear?**
 Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two seperate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Buttefly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breastroke, Butterfly, and then Freestyle. 
 
@@ -39,12 +50,88 @@ data %>%
 ```
 
 ***The answer is clearly Freestyle.***
-Just by looking at the graph, we can immediately notice that freestyle skyrockets in comparison to the other five strokes. We can also see that the gender (whether a man or woman is swimming) is split almost right down the middle, and that goes for all the strokes. This is to be expected, as for every event there is for a man, there is also one for a woman. Backstroke, breaststroke, and butterfly are evenly matched in frequency, but why is Freestyle so high up? 
+Just by looking at the graph, we can immediately notice that freestyle skyrockets in comparison to the other five strokes. We can also see that the gender (whether a man or woman is swimming) is split almost right down the middle, and that goes for all the strokes. This is to be expected, as for every event there is for a man, there is also one for a woman. Backstroke, breaststroke, and butterfly are evenly matched in frequency, but why is Freestyle so high up? Let's break it down.
+
+```{r}
+
+
+
+
+```
+
+**Which countries are the most successful at the Olympics?**
+Many countries all over the world compete in the swimming events, but they can't all get first place. The following table shows the top five countries in the history of the Olympic games in terms of first placements and how many gold medals they won.
+
+
+```{r, echo=FALSE}
+data %>%
+  filter(didWin == "yes") %>%
+  group_by(Team) %>%
+  count(didWin) %>%
+  select(Team, n) %>%
+  summarise(Wins = n) %>%
+  arrange(desc(Wins)) %>%
+  slice(1, 2, 3, 4, 5)
+```
+***USA dominates the competition in the Olympics!***
+Taking a look at the table, we see that USA is in the lead with 240 total wins. Australia is next in the podium with 61 wins. Then comes East Germany in third place with 30 wins. Tailing in fourth and fifth are Hungary and Japan, with 25 and 24 wins respectively. 
+
+
+**Which athlete has the most collective wins?**
 
 
 
 
 
+
+
+
+
+
+
+
+```{r, echo=FALSE}
+data %>%
+  filter(didWin == "yes", Year == "2020") %>%
+  count()
+
+data %>%
+  filter(didWin == "yes", Year == "1964")
+
+data %>%
+  count(didWin)
+
+data %>%
+  filter(didWin == "yes") %>%
+  group_by(Team) %>%
+  count(didWin) %>%
+  select(Team, n) %>%
+  summarise(Wins = n) %>%
+  arrange(desc(Wins))
+```
+
+
+```{r, echo=FALSE}
+data <- data %>%
+  mutate(didWin = if_else(Rank == 1, "yes", "no"))
+```
+
+```{r, echo=FALSE}
+data %>%
+  filter(Location == "Tokyo", didWin == "yes", Relay. == 0) %>%
+  select(Athlete, Results, Location, Year)
+
+```
+
+```{r, echo=FALSE}
+data %>%
+  count(didWin)
+
+data %>%
+  filter(Relay. == 0, Stroke != "Medley") %>%
+  select(Team, Stroke, Distance..in.meters., didWin)
+  
+```
 
 
 
