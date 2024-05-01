@@ -52,7 +52,7 @@ Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and
 
 data %>%
   ggplot(aes(x = Stroke, fill = Gender)) +
-  geom_bar() +
+  geom_bar(color = "black", size = 0.3) +
   scale_fill_manual(values = c("#F98CE5","#77F3FF")) +
   labs(x = "Stroke", 
        y = "Frequency", 
