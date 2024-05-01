@@ -25,15 +25,22 @@ data %>%
 ## 3. Data analysis plan
 
 **History of Swimming Olympics**
-This dataset covers all of the Olympic games (swimming events) from the first ones back in 1912 to the most recent ones in 2020. ***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.*** How have the games evolved over the past century? How many events did there used to be and how many are there now?
+This dataset covers all of the Olympic games (swimming events) from the ones back in 1912 to the most recent ones in 2020. ***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.*** How have the games evolved over the past century? How many events did there used to be and how many are there now?
 
-```{r}
+```{r, echo=FALSE}
 #didWin variable created here so it is easier to single out the events. there are multiple swimmers in each event but only one can win, so singling out the winners gives us just one entry for each event
 data <- data %>%
   mutate(didWin = if_else(Rank == 1, "yes", "no"))
 
-
+data %>%
+  filter(didWin == "yes", Year == "1912" | Year == "2020") %>%
+  group_by(Year) %>%
+  count() %>%
+  select(Year, n) %>%
+  summarise(Events = n)
 ```
+Wow! There were only eight events in the 1912 Olympic games! And in 2020, we had 28 total events. That means that over the past 100 years, 20 new events have been added to the Olympics. I wonder what they were?
+
 
 **How common is each stroke in the Olympic Games? That is, how often does each stroke appear?**
 Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two seperate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Buttefly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breastroke, Butterfly, and then Freestyle. 
@@ -76,6 +83,23 @@ data %>%
 ***USA dominates the competition in the Olympics!***
 Taking a look at the table, we see that USA is in the lead with 240 total wins. Australia is next in the podium with 61 wins. Then comes East Germany in third place with 30 wins. Tailing in fourth and fifth are Hungary and Japan, with 25 and 24 wins respectively. 
 
+**When did USA pick up their wins?**
+
+```{r, echo=FALSE}
+data %>%
+  mutate(USAwinlose = if_else(Rank == 1, "Win", "Lose")) %>%
+  filter(Team == "USA") %>%
+  ggplot(aes(y = USAwinlose, fill = USAwinlose)) +
+  geom_bar(color = "black", size = 0.3) +
+  scale_fill_manual(values = c("red","green")) +
+  facet_wrap(. ~ Year) +
+  labs(title = "USA Placements in Swimming Events Over the Years",
+       subtitle = "From 1912 to 2020",
+       x = "Wins/Losses",
+       y = "",
+       fill = "")
+```
+At first glance, it looks like all the USA does is lose! But starting in 1960, the country was racking in at least 10 wins every four years (excluding 1988), and all those gold medals add up. 
 
 **Which athlete has the most collective wins?**
 
@@ -90,7 +114,7 @@ Taking a look at the table, we see that USA is in the lead with 240 total wins. 
 
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval = FALSE}
 data %>%
   filter(didWin == "yes", Year == "2020") %>%
   count()
@@ -111,19 +135,19 @@ data %>%
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval = FALSE}
 data <- data %>%
   mutate(didWin = if_else(Rank == 1, "yes", "no"))
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval = FALSE}
 data %>%
   filter(Location == "Tokyo", didWin == "yes", Relay. == 0) %>%
   select(Athlete, Results, Location, Year)
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval = FALSE}
 data %>%
   count(didWin)
 
