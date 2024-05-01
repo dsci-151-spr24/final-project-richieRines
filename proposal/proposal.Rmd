@@ -28,6 +28,8 @@ data %>%
 This dataset covers all of the Olympic games (swimming events) from the ones back in 1912 to the most recent ones in 2020. ***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.*** How have the games evolved over the past century? How many events did there used to be and how many are there now?
 
 ```{r, echo=FALSE}
+#| label: event_num
+
 #didWin variable created here so it is easier to single out the events. there are multiple swimmers in each event but only one can win, so singling out the winners gives us just one entry for each event
 data <- data %>%
   mutate(didWin = if_else(Rank == 1, "yes", "no"))
@@ -46,6 +48,8 @@ Wow! There were only eight events in the 1912 Olympic games! And in 2020, we had
 Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two seperate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Buttefly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breastroke, Butterfly, and then Freestyle. 
 
 ```{r echo=FALSE}
+#| label: strk_freq
+
 data %>%
   ggplot(aes(x = Stroke, fill = Gender)) +
   geom_bar() +
@@ -71,6 +75,8 @@ Many countries all over the world compete in the swimming events, but they can't
 
 
 ```{r, echo=FALSE}
+#| label: top_wins
+
 data %>%
   filter(didWin == "yes") %>%
   group_by(Team) %>%
@@ -86,12 +92,14 @@ Taking a look at the table, we see that USA is in the lead with 240 total wins. 
 **When did USA pick up their wins?**
 
 ```{r, echo=FALSE}
+#| label: usa_wins
+
 data %>%
-  mutate(USAwinlose = if_else(Rank == 1, "Win", "Lose")) %>%
+  mutate(USAwinlose = if_else(Rank == 1, "Wins", "Losses")) %>%
   filter(Team == "USA") %>%
   ggplot(aes(y = USAwinlose, fill = USAwinlose)) +
   geom_bar(color = "black", size = 0.3) +
-  scale_fill_manual(values = c("red","green")) +
+  scale_fill_manual(values = c("#FF0505","#74EF00")) +
   facet_wrap(. ~ Year) +
   labs(title = "USA Placements in Swimming Events Over the Years",
        subtitle = "From 1912 to 2020",
@@ -99,7 +107,28 @@ data %>%
        y = "",
        fill = "")
 ```
-At first glance, it looks like all the USA does is lose! But starting in 1960, the country was racking in at least 10 wins every four years (excluding 1988), and all those gold medals add up. 
+
+At first glance, it looks like all the USA does is lose! But starting in 1960, the country was racking in at least 10 wins every four years (excluding 1988), and all those gold medals add up. Also, when we look at the same graph but with the second-place country, Australia, we see that USA really does have an absurd amount of wins. 
+
+```{r, echo=FALSE}
+#| label: aus_wins
+
+data %>%
+  mutate(AUSwinlose = if_else(Rank == 1, "Wins", "Losses")) %>%
+  filter(Team == "AUS") %>%
+  ggplot(aes(y = AUSwinlose, fill = AUSwinlose)) +
+  geom_bar(color = "black", size = 0.3) +
+  scale_fill_manual(values = c("#ED294A","#3FE241")) +
+  facet_wrap(. ~ Year) +
+  labs(title = "Australia (AUS) Placements in Swimming Events Over the Years",
+       subtitle = "From 1912 to 2020 (with different colors to further seperate from previous graph)",
+       x = "Wins/Losses",
+       y = "",
+       fill = "")
+```
+
+Australia has a lot less green, and a whole lot more red! However, they have been somewhat consistent with their placements, and they appear to be on the rise when we look at their wins from 1996 to 2020 (as long as we ignore 2012). 
+
 
 **Which athlete has the most collective wins?**
 
