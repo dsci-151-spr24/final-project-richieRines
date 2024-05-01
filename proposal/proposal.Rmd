@@ -1,6 +1,6 @@
 ---
 title: "Project proposal"
-author: "Your name"
+author: "Richie Rines"
 output: github_document
 ---
 
@@ -10,14 +10,75 @@ library(broom)
 ```
 
 ## 1. Introduction
-
-
+The dataset I plan on using for my project is called “Olympic Swimming History (1912 to 2020)”. I found it on Kaggle and the link to it is https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download. I picked this dataset because swimming is a decent part of my life so I think this will be fun to analyze. It has 4359 observations and 10 variables. The variables are Location, Year, Distance (in meters), Stroke, Relay?, Gender, Team, Athlete, Results, and Rank. The dataset stores all of the Olympic swimming events ranging from 1912 to 2020. I believe I can make a whole bunch of visualizations with the data, including bar graphs, facets, tables, histograms, etc. Some questions I could answer in my project are what strokes have the fastest times, which countries were the fastest, how male times compared with female times, which countries were disqualified the most, is disqualification associated with one gender more than the other?
 
 ## 2. Data
+```{r}
+data <- read.csv("Olympic_Swimming_Results_1912to2020.csv")
+```
 
-
+```{r}
+data %>%
+  glimpse()
+```
 
 ## 3. Data analysis plan
+
+**How common is each stroke in the Olympic Games? That is, how often does each stroke appear?**
+Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two seperate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Buttefly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breastroke, Butterfly, and then Freestyle. 
+
+```{r echo=FALSE}
+data %>%
+  ggplot(aes(x = Stroke, fill = Gender)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#F98CE5","#77F3FF")) +
+  labs(x = "Stroke", 
+       y = "Frequency", 
+       title = "How Frequent Each Stroke is in the Olympics", 
+       subtitle = "And the genders that swim them")
+```
+
+***The answer is clearly Freestyle.***
+Just by looking at the graph, we can immediately notice that freestyle skyrockets in comparison to the other five strokes. We can also see that the gender (whether a man or woman is swimming) is split almost right down the middle, and that goes for all the strokes. This is to be expected, as for every event there is for a man, there is also one for a woman. Backstroke, breaststroke, and butterfly are evenly matched in frequency, but why is Freestyle so high up? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
