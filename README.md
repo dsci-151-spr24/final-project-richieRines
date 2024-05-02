@@ -34,6 +34,8 @@ Kaggle.
 
 ## References
 
-This is the dataset I used: Donut, D. S. (2023, April 18). Olympic
-swimming history (1912 to 2020). Kaggle.
+This is the dataset I used:
+
+Donut, D. S. (2023, April 18). Olympic swimming history (1912 to 2020).
+Kaggle.
 <https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download>
