@@ -9,6 +9,21 @@ library(tidyverse)
 library(broom)
 ```
 
+``` {r, echo=FALSE}
+#| label: colorize
+
+#this code chunk does not matter too much. i just wanted to be able to change the color of some text if i felt like it. i found this code online here: (https://bookdown.org/yihui/rmarkdown-cookbook/font-color.html)
+
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
+```
+
 ## 1. Introduction
 The dataset I plan on using for my project is called “Olympic Swimming History (1912 to 2020)”. I found it on Kaggle and the link to it is https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download. I picked this dataset because swimming is a decent part of my life so I think this will be fun to analyze. It has 4359 observations and 10 variables. The variables are Location, Year, Distance (in meters), Stroke, Relay?, Gender, Team, Athlete, Results, and Rank. The dataset stores all of the Olympic swimming events ranging from 1912 to 2020. I believe I can make a whole bunch of visualizations with the data, including bar graphs, facets, tables, histograms, etc. Some questions I could answer in my project are what strokes have the fastest times, which countries were the fastest, how male times compared with female times, which countries were disqualified the most, is disqualification associated with one gender more than the other?
 
@@ -25,7 +40,10 @@ data %>%
 ## 3. Data analysis plan
 
 **History of Swimming Olympics**
-This dataset covers all of the Olympic games (swimming events) from the ones back in 1912 to the most recent ones in 2020. ***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.*** How have the games evolved over the past century? How many events did there used to be and how many are there now?
+
+This dataset covers all of the Olympic games (swimming events) from the ones back in 1912 to the most recent ones in 2020. `r colorize("***NOTE: The 2024 Olympics will be starting in July 2024, a few months after this report was made. Some information shown here will become dated.***", "#707070")` How have the games evolved over the past century? How many events did there used to be and how many are there now?
+
+`r colorize("***NOTE: THIS DATASET DOES NOT INCLUDE RELAYS FROM 2020. SOME GRAPHICS MAY DISPLAY INFORMATION FROM 2016 FOR THIS REASON***", "#FF3636")`
 
 ```{r, echo=FALSE}
 #| label: event_num
@@ -34,26 +52,43 @@ This dataset covers all of the Olympic games (swimming events) from the ones bac
 data <- data %>%
   mutate(didWin = if_else(Rank == 1, "yes", "no"))
 
+# I use 2016 here because the dataset does not display the results of the 2020 relays
 data %>%
-  filter(didWin == "yes", Year == "1912" | Year == "2020") %>%
+  filter(didWin == "yes", Year == "1912" | Year == "2016") %>%
   group_by(Year) %>%
   count() %>%
   select(Year, n) %>%
   summarise(Events = n)
 ```
-Wow! There were only eight events in the 1912 Olympic games! And in 2020, we had 28 total events. That means that over the past 100 years, 20 new events have been added to the Olympics. I wonder what they were?
 
+Wow! There were only eight events in the 1912 Olympic games! And in 2016, we had 31 total events. That means that over the past 100 years, over 20 new events have been added to the Olympics. I wonder what they were?
+
+```{r, echo=FALSE}
+data %>%
+  filter(didWin == "yes", Year == "1912") %>%
+  select(Year, Distance..in.meters., Stroke, Gender)
+
+# I use 2016 here because the dataset does not display the results of the 2020 relays
+data %>%
+  filter(didWin == "yes", Year == "2016", Gender == "Men") %>%
+  select(Year, Distance..in.meters., Stroke, Gender)
+```
+
+`r colorize("*Although it does not show it, every race has an event for Men and Women. So while the table only displays 16 events, there are really 32. Half of them were hidden to conserve space on the report*", "#F35D5D")`
+
+Looking at the table, we can see that some new events were created over the years. We see the appearance of the 50m and the 200m, as well as individual medley races and relays (medleys). A big reason as to why there was such a drastic increase in events is because after time, all the events that were originally just for men became open to women as well. 
 
 **How common is each stroke in the Olympic Games? That is, how often does each stroke appear?**
-Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two seperate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Buttefly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breastroke, Butterfly, and then Freestyle. 
+
+Swimming consists of four main strokes: Backstroke, Breaststroke, Butterfly, and Freestyle. There are also two separate events, called medleys, that are combinations of all four strokes. Individual medley (IM) is Butterfly, Backstroke, Breaststroke, and then Freestyle. Medley is Backstroke, Breaststroke, Butterfly, and then Freestyle. 
 
 ```{r echo=FALSE}
 #| label: strk_freq
 
 data %>%
   ggplot(aes(x = Stroke, fill = Gender)) +
-  geom_bar(color = "black", size = 0.3) +
-  scale_fill_manual(values = c("#F98CE5","#77F3FF")) +
+  geom_bar(color = "black", linewidth = 0.3) +
+  scale_fill_manual(values = c("#77F3FF","#F98CE5")) +
   labs(x = "Stroke", 
        y = "Frequency", 
        title = "How Frequent Each Stroke is in the Olympics", 
@@ -63,14 +98,19 @@ data %>%
 ***The answer is clearly Freestyle.***
 Just by looking at the graph, we can immediately notice that freestyle skyrockets in comparison to the other five strokes. We can also see that the gender (whether a man or woman is swimming) is split almost right down the middle, and that goes for all the strokes. This is to be expected, as for every event there is for a man, there is also one for a woman. Backstroke, breaststroke, and butterfly are evenly matched in frequency, but why is Freestyle so high up? Let's break it down.
 
-```{r}
-
-
-
-
+```{r, echo=FALSE}
+#| label: free_other
+  
+data %>%
+  mutate(TempStroke = if_else(Stroke == "Freestyle", "Freestyle", "Other")) %>%
+  filter(didWin == "yes", Year == "2016") %>%
+  count(TempStroke)
 ```
 
+According to the table, there are almost just as many freestyle events as there are other events! No wonder the freestyle bar was so high up. 
+
 **Which countries are the most successful at the Olympics?**
+
 Many countries all over the world compete in the swimming events, but they can't all get first place. The following table shows the top five countries in the history of the Olympic games in terms of first placements and how many gold medals they won.
 
 
@@ -86,7 +126,8 @@ data %>%
   arrange(desc(Wins)) %>%
   slice(1, 2, 3, 4, 5)
 ```
-***USA dominates the competition in the Olympics!***
+
+USA dominates the competition in the Olympics!
 Taking a look at the table, we see that USA is in the lead with 240 total wins. Australia is next in the podium with 61 wins. Then comes East Germany in third place with 30 wins. Tailing in fourth and fifth are Hungary and Japan, with 25 and 24 wins respectively. 
 
 **When did USA pick up their wins?**
@@ -98,7 +139,7 @@ data %>%
   mutate(USAwinlose = if_else(Rank == 1, "Wins", "Losses")) %>%
   filter(Team == "USA") %>%
   ggplot(aes(y = USAwinlose, fill = USAwinlose)) +
-  geom_bar(color = "black", size = 0.3) +
+  geom_bar(color = "black", linewidth = 0.3) +
   scale_fill_manual(values = c("#FF0505","#74EF00")) +
   facet_wrap(. ~ Year) +
   labs(title = "USA Placements in Swimming Events Over the Years",
@@ -107,6 +148,8 @@ data %>%
        y = "",
        fill = "")
 ```
+
+`r colorize("***Note: the USA did not participate in the 1980 Olympic games due to the boycott created to protest the Soviet Union's invasion in Afghanistan***", "#12C87B")`
 
 At first glance, it looks like all the USA does is lose! But starting in 1960, the country was racking in at least 10 wins every four years (excluding 1988), and all those gold medals add up. Also, when we look at the same graph but with the second-place country, Australia, we see that USA really does have an absurd amount of wins. 
 
@@ -117,7 +160,7 @@ data %>%
   mutate(AUSwinlose = if_else(Rank == 1, "Wins", "Losses")) %>%
   filter(Team == "AUS") %>%
   ggplot(aes(y = AUSwinlose, fill = AUSwinlose)) +
-  geom_bar(color = "black", size = 0.3) +
+  geom_bar(color = "black", linewidth = 0.3) +
   scale_fill_manual(values = c("#ED294A","#3FE241")) +
   facet_wrap(. ~ Year) +
   labs(title = "Australia (AUS) Placements in Swimming Events Over the Years",
