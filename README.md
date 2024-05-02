@@ -28,12 +28,12 @@ My presentation can be found [here](presentation/presentation.html).
 
 ## Data
 
-Include a citation for your data here. See
-<http://libraryguides.vu.edu.au/c.php?g=386501&p=4347840> for guidance
-on proper citation for datasets. If you got your data off the web, make
-sure to note the retrieval date.
+Donut, D. S. (2023, April 18). Olympic swimming history (1912 to 2020).
+Kaggle.
+<https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download>
 
 ## References
 
-List any references here. You should, at a minimum, list your data
-source.
+This is the dataset I used: Donut, D. S. (2023, April 18). Olympic
+swimming history (1912 to 2020). Kaggle.
+<https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download>
