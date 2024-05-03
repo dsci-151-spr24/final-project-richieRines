@@ -175,14 +175,20 @@ Australia has a lot less green, and a whole lot more red! However, they have bee
 
 **Which athlete has the most collective wins?**
 
+```{r echo=FALSE}
+data %>%
+  filter(didWin == "yes") %>%
+  group_by(Athlete) %>%
+  count(didWin) %>%
+  select(Athlete, n) %>%
+  summarise(Wins = n) %>%
+  arrange(desc(Wins)) %>%
+  slice(1, 2, 3, 4, 5, 6, 7, 8, 9)
+```
 
+`r colorize("*^table displays top five win amounts throughout the olympics; entries 4-9 are tied for 4th place^*", "#0A9A6E")`
 
-
-
-
-
-
-
+Looking at the table, we can see that Michael Phelps (from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) has the most individual gold medals out of all the athletes with a total of 13. Katie Ledecky (also from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) is 
 
 
 
