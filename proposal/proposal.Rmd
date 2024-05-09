@@ -25,7 +25,7 @@ colorize <- function(x, color) {
 ```
 
 ## 1. Introduction
-The dataset I plan on using for my project is called “Olympic Swimming History (1912 to 2020)”. I found it on Kaggle and the link to it is https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download. I picked this dataset because swimming is a decent part of my life so I think this will be fun to analyze. It has 4359 observations and 10 variables. The variables are Location, Year, Distance (in meters), Stroke, Relay?, Gender, Team, Athlete, Results, and Rank. The dataset stores all of the Olympic swimming events ranging from 1912 to 2020. I believe I can make a whole bunch of visualizations with the data, including bar graphs, facets, tables, histograms, etc. Some questions I could answer in my project are what strokes have the fastest times, which countries were the fastest, how male times compared with female times, which countries were disqualified the most, is disqualification associated with one gender more than the other?
+The dataset I plan on using for my project is called “Olympic Swimming History (1912 to 2020)”. I found it on Kaggle and the link to it is https://www.kaggle.com/datasets/datasciencedonut/olympic-swimming-1912-to-2020?resource=download. I picked this dataset because swimming is a decent part of my life so I think this will be fun to analyze. It has 4359 observations and 10 variables. The variables are Location, Year, Distance (in meters), Stroke, Relay?, Gender, Team, Athlete, Results, and Rank. The dataset stores all of the Olympic swimming events ranging from 1912 to 2020. I believe I can make a whole bunch of visualizations with the data, including bar graphs, facets, tables, histograms, etc.
 
 ## 2. Data
 ```{r}
@@ -188,7 +188,7 @@ data %>%
 
 `r colorize("*^table displays top five win amounts throughout the olympics; entries 4-9 are tied for 4th place^*", "#0A9A6E")`
 
-Looking at the table, we can see that Michael Phelps (from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) has the most individual gold medals out of all the athletes with a total of 13. Katie Ledecky (also from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) is 
+Looking at the table, we can see that Michael Phelps (from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) has the most individual gold medals out of all the athletes with a total of 13. Katie Ledecky (also from Team `r colorize("**U**", "red")``r colorize("**S**", "white")``r colorize("**A**", "blue")`) is next in line but she still only has six wins, less than half of what Phelps has. Michael Phelps is truly the king of the swimming portion of the summer olympics!
 
 
 
