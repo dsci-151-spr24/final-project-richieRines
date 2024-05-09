@@ -4,7 +4,7 @@
     <title>Analysing Olympic Swimming History</title>
     <meta charset="utf-8" />
     <meta name="author" content="Richie Rines" />
-    <meta name="date" content="2024-05-03" />
+    <meta name="date" content="2024-05-09" />
     <script src="libs/header-attrs-2.26/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### Houghton University
 ]
 .date[
-### 2024-05-03
+### 2024-05-09
 ]
 
 ---
@@ -38,103 +38,16 @@ class: center, middle, inverse, title-slide
 
 
 
-```r
-style_xaringan(
-  title_slide_background_image = "img/swimming.png"
-)
-```
 
 
 class: center, middle
 
-## A statement of the overall goal / research question
+## Goal:
+##To Analyze Olympic Swimming Results
 
 ---
 
-class: inverse, center, middle
-
-# Section title
-
----
-
-# Hello World
-
-- Click the `Knit` button to compile your presentation
-
-- Make sure to commit and push all resulting files to your GitHub repo
-
----
-
-class: inverse, middle, center
-
-# Using xaringan
-
----
-
-# xaringan
-
-- The presentation is created using the `xaringan` package
-
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
-
----
-
-# Layouts
-
-You can use plain text
-
-- or bullet points
-
-.pull-left[
-or text in two columns `\(^*\)`
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-# Code
-
-
-```r
-# a boring regression
-model &lt;- lm(dist ~ speed, data = cars)
-tidy(model)
-```
-
-```
-## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)   -17.6      6.76      -2.60 1.23e- 2
-## 2 speed           3.93     0.416      9.46 1.49e-12
-```
-
-```r
-glance(model)
-```
-
-```
-## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     0.651         0.644  15.4      89.6 1.49e-12     1  -207.  419.  425.
-## # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
-```
-
----
-
-# CodeRichie
+# Number of Events
 
 
 ```r
@@ -159,133 +72,150 @@ data %&gt;%
 
 ---
 
-# Plots
+# 1912 events
 
 
-
-&lt;img src="presentation_files/figure-html/plot-iris-1.png" width="80%" /&gt;
-
----
-
-## Plot and text
-
-.pull-left[
-- Some text
-- goes here
-]
-.pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
-]
-
----
-
-# Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; Sepal.Length &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Sepal.Width &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Petal.Length &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Petal.Width &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.9 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.9 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-# Images
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1650&amp;q=80" alt="Image credit: Photo by Jörg Angeli on Unsplash." width="60%" /&gt;
-&lt;p class="caption"&gt;Image credit: Photo by Jörg Angeli on Unsplash.&lt;/p&gt;
-&lt;/div&gt;
-
-Or you can also include a full page image. See next slide.
-
----
-
-background-image: url(https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1650&amp;q=80)
-
----
-
-# Math Expressions
-
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &amp;#36;\alpha+\beta$ renders `\(\alpha+\beta\)`. You can use the display style with double dollar signs:
-
-```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```r
+data %&gt;%
+  filter(didWin == "yes", Year == "1912") %&gt;%
+  select(Year, Distance..in.meters., Stroke, Gender)
 ```
 
-`$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$`
-
-Limitations:
-
-1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-1. There should not be spaces after the opening `$` or before the closing `$`.
-
-1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
+```
+##   Year Distance..in.meters.       Stroke Gender
+## 1 1912                 100m   Backstroke    Men
+## 2 1912                 100m    Freestyle    Men
+## 3 1912                 100m    Freestyle  Women
+## 4 1912                1500m    Freestyle    Men
+## 5 1912                 200m Breaststroke    Men
+## 6 1912                 400m Breaststroke    Men
+## 7 1912                 400m    Freestyle    Men
+## 8 1912                4x200    Freestyle    Men
+```
 
 ---
 
-# Feeling adventurous?
+# 2016 events
 
-- Want to find out more about `xaringan`? See https://slides.yihui.name/xaringan/#1.
 
-- You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+```r
+data %&gt;%
+  filter(didWin == "yes", Year == "2016", Gender == "Men") %&gt;%
+  select(Year, Distance..in.meters., Stroke, Gender)
+```
 
-- But some of you might want to play around with slide styling. The 
-`xaringanthemer` provides some solutions for this that: https://pkg.garrickadenbuie.com/xaringanthemer.
+```
+##    Year Distance..in.meters.            Stroke Gender
+## 1  2016                 100m        Backstroke    Men
+## 2  2016                 100m      Breaststroke    Men
+## 3  2016                 100m         Butterfly    Men
+## 4  2016                 100m         Freestyle    Men
+## 5  2016                1500m         Freestyle    Men
+## 6  2016                 200m        Backstroke    Men
+## 7  2016                 200m      Breaststroke    Men
+## 8  2016                 200m      Breaststroke    Men
+## 9  2016                 200m         Butterfly    Men
+## 10 2016                 200m         Freestyle    Men
+## 11 2016                 200m Individual medley    Men
+## 12 2016                 400m         Freestyle    Men
+## 13 2016                 400m Individual medley    Men
+## 14 2016                4x100         Freestyle    Men
+## 15 2016                4x200         Freestyle    Men
+## 16 2016                  50m         Freestyle    Men
+```
+---
 
-- And if you want more bells and whistles, there is also `xaringanExtra`: https://pkg.garrickadenbuie.com/xaringanExtra.
+# Stroke Frequency
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-5-1.png" width="82%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Whole Lotta Free
+
+
+```r
+data %&gt;%
+  mutate(TempStroke = if_else(Stroke == "Freestyle", "Freestyle", "Other")) %&gt;%
+  filter(didWin == "yes", Year == "2016") %&gt;%
+  count(TempStroke)
+```
+
+```
+##   TempStroke  n
+## 1  Freestyle 15
+## 2      Other 16
+```
+
+---
+
+# Most Successful Countries
+
+
+```r
+data %&gt;%
+  filter(didWin == "yes") %&gt;%
+  group_by(Team) %&gt;%
+  count(didWin) %&gt;%
+  select(Team, n) %&gt;%
+  summarise(Wins = n) %&gt;%
+  arrange(desc(Wins)) %&gt;%
+  slice(1, 2, 3, 4, 5)
+```
+
+```
+## # A tibble: 5 × 2
+##   Team   Wins
+##   &lt;chr&gt; &lt;int&gt;
+## 1 USA     240
+## 2 AUS      61
+## 3 GDR      30
+## 4 HUN      25
+## 5 JPN      24
+```
+
+---
+
+# USA Plot
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-8-1.png" width="82%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# AUS Plot
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-9-1.png" width="82%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Most Successful Athletes
+
+
+```r
+data %&gt;%
+  filter(didWin == "yes") %&gt;%
+  group_by(Athlete) %&gt;%
+  count(didWin) %&gt;%
+  select(Athlete, n) %&gt;%
+  summarise(Wins = n) %&gt;%
+  arrange(desc(Wins)) %&gt;%
+  slice(1, 2, 3, 4, 5, 6, 7, 8, 9)
+```
+
+```
+## # A tibble: 9 × 2
+##   Athlete              Wins
+##   &lt;chr&gt;               &lt;int&gt;
+## 1 Michael Phelps         13
+## 2 Katie Ledecky           6
+## 3 Krisztina Egerszegi     5
+## 4 Alexander Popov         4
+## 5 Inge De Bruijn          4
+## 6 Janet Evans             4
+## 7 Mark Spitz              4
+## 8 Tamas Darnyi            4
+## 9 Yana Klochkova          4
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
